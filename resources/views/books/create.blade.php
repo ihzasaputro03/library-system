@@ -13,6 +13,9 @@
         <div>
             <label for="judul">Judul Buku:</label>
             <input type="text" id="judul" name="judul" value="{{ old('judul') }}">
+        @error('judul')
+            <p>{{ $message }}</p>
+        @enderror
         </div>
 
         <div>
