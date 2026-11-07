@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BookController extends Controller 
@@ -11,7 +12,7 @@ class BookController extends Controller
     {  
         $title = 'Daftar Buku';
         
-        $books = Book::all(); 
+        $books = Book::with('category')->get(); 
 
         $stock = Book::sum('stok');  
         $description = 'Daftar koleksi buku yang tersedia di perpustakaan.'; 
@@ -31,7 +32,8 @@ class BookController extends Controller
     }
 
     public function create() {
-    return view('books.create');
+    $categories = Category::all();    
+    return view('books.create', compact ('categories'));
 }
 
 public function store(Request $request) {
@@ -39,6 +41,7 @@ public function store(Request $request) {
         'judul'  => 'required|string|max:255',
         'penulis' => 'required|string|max:255',
         'tahun_terbit'   => 'required|integer|min:1900',
+        'category_id' => 'required|exists:categories,id',
         'stok'  => 'required|integer|min:0',
     ]);
     Book::create($validated);
@@ -49,7 +52,8 @@ public function store(Request $request) {
 
 public function edit($id) {
     $book = Book::findOrFail($id);
-    return view('books.edit', compact('book'));
+    $categories = Category::orderBy('nama')->get();
+    return view('books.edit', compact('book', 'categories'));
 }
 
 public function update(Request $request, $id) {

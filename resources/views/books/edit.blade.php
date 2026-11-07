@@ -27,6 +27,18 @@
         </div>
 
         <div>
+    <label for="category_id">Kategori:</label>
+    <select id="category_id" name="category_id" required style="width: 100%; padding: 8px;">
+        <option value="">-- Pilih Kategori --</option>
+        @foreach($categories as $category)
+            <option value="{{ $category->id }}" 
+            @selected(old('category_id', $book->category_id) == $category->id)>
+                {{ $category->nama }}
+            </option>
+        @endforeach
+</div>
+
+        <div>
             <label for="stok">Stok:</label>
             <input type="number" id="stok" name="stok" value="{{ old('stok', $book->stok) }}">
         </div>

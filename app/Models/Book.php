@@ -14,5 +14,10 @@ class Book extends Model
         'penulis',
         'tahun_terbit',
         'stok',
+        'category_id'
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

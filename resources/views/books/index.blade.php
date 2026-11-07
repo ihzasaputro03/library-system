@@ -20,6 +20,7 @@
                 <th>Judul Buku</th>
                 <th>Penulis</th>
                 <th>Tahun Terbit</th>
+                <th>Kategori</th>
                 <th>Stok</th>
             </tr>
         </thead>
@@ -30,6 +31,7 @@
                     <td>{{ $book->judul }}</td>
                     <td>{{ $book->penulis }}</td>
                     <td>{{ $book->tahun_terbit }}</td>
+                    <td>{{ $book->category->nama ?? 'Tanpa Kategori' }}</td>
                     <td>{{ $book->stok }}</td>
                 </tr>
             @endforeach
